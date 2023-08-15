@@ -8,61 +8,6 @@ CREATE TABLE
         picture varchar(255) COMMENT 'User Picture'
     ) default charset utf8 COMMENT '';
 
--- FIXME maybe we need to change something
-
-CREATE TABLE
-    capybaras(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        name VARCHAR(10) NOT NULL COMMENT 'The name of our cute little dudes',
-        ownedByGrandma BOOLEAN DEFAULT true COMMENT 'Keeps track of if this cute little dude was owned by a cute little grandma',
-        birthday DATE NOT NULL,
-        applesEaten SMALLINT UNSIGNED DEFAULT 0,
-        livesAtFarm BOOLEAN NOT NULL DEFAULT FALSE
-    ) default charset utf8 COMMENT '';
-
-DROP TABLE capybaras;
-
-ALTER TABLE capybaras
-ADD
-    livesAtFarm BOOLEAN NOT NULL DEFAULT FALSE;
-
-INSERT INTO
-    capybaras (
-        name,
-        ownedByGrandma,
-        birthday,
-        applesEaten
-    )
-VALUES (
-        'Cappy',
-        true,
-        '1990-12-24',
-        5000
-    ), (
-        'Tippy Toes',
-        false,
-        '2012-01-01',
-        3
-    );
-
-SELECT name FROM capybaras;
-
-SELECT name, applesEaten FROM capybaras;
-
-SELECT * FROM capybaras;
-
-SELECT * FROM capybaras WHERE name = 'Cappy';
-
-SELECT * FROM capybaras WHERE name LIKE '%cap%';
-
-SELECT * FROM capybaras WHERE id = 3;
-
-SELECT * FROM capybaras LIMIT 1 OFFSET 1;
-
-DELETE FROM capybaras WHERE id = 2 LIMIT 1 ;
-
-UPDATE capybaras SET applesEaten = 9999 WHERE id = 3 LIMIT 1 ;
-
 CREATE TABLE
     cars(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -97,3 +42,65 @@ VALUES (
     );
 
 SELECT LAST_INSERT_ID();
+
+CREATE TABLE
+    houses(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',
+        bedrooms INT UNSIGNED NOT NULL COMMENT 'Number of bedrooms',
+        bathrooms DECIMAL UNSIGNED NOT NULL COMMENT 'Number of bathrooms',
+        year INT UNSIGNED NOT NULL COMMENT 'Year built',
+        price DECIMAL UNSIGNED NOT NULL COMMENT 'Price of house',
+        description VARCHAR(255) COMMENT 'Description of house',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update'
+    ) default charset utf8 COMMENT '';
+
+DROP TABLE houses;
+
+INSERT INTO
+    houses(
+        bedrooms,
+        bathrooms,
+        year,
+        price,
+        description
+    )
+VALUES (
+        2,
+        1.5,
+        2001,
+        1000,
+        "This is a house"
+    );
+
+CREATE Table
+    jobs(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',
+        position VARCHAR(255) NOT NULL COMMENT 'Job Position',
+        salary INT UNSIGNED NOT NULL COMMENT 'Job salary',
+        isFullTime BOOLEAN DEFAULT true COMMENT 'Is job full time',
+        schedule ENUM (
+            'Weekdays',
+            'Weekends',
+            'Flexible',
+            'OnCall'
+        ) NOT NULL COMMENT 'Job schedule',
+        description VARCHAR(255) NOT NULL COMMENT 'Job description'
+    ) default charset utf8 COMMENT '';
+
+INSERT INTO
+    jobs(
+        position,
+        salary,
+        isFullTime,
+        schedule,
+        description
+    )
+VALUES
+(
+        'Something',
+        5,
+        true,
+        'Weekdays',
+        'No of your business'
+    );
